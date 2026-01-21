@@ -26,6 +26,7 @@ public class RegistrationForm extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         add(lblUsername, gbc);
 
+
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
         add(txtUsername, gbc);
