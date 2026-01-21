@@ -2,10 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class RegistrationForm extends JFrame {
-
-    public RegistrationForm() {
-        setTitle("Registration Form");
+public class LoginForm extends JFrame {
+    public LoginForm(String username, String emailaddress) {
+        setTitle("Login Form");
         setSize(350, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -18,7 +17,7 @@ public class RegistrationForm extends JFrame {
         JLabel lblemailaddress = new JLabel("Email Address:");
         JTextField txtemail = new JTextField(15);
 
-        JButton btnRegister = new JButton("Register");
+        JButton btnRegister = new JButton("Login");
 
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
@@ -46,16 +45,22 @@ public class RegistrationForm extends JFrame {
         add(btnRegister, gbc);
 
         btnRegister.addActionListener(e -> {
-                String username = txtUsername.getText();
-                String emailaddress = txtemail.getText();
-                JOptionPane.showMessageDialog(null,
-                        "Welcome " + username + " " + emailaddress);
-                LoginForm loginForm = new LoginForm(username, emailaddress);
-                loginForm.setVisible(true);
-                dispose();
+            String usernameInput = txtUsername.getText();
+            String emailaddressInput = txtemail.getText();
+            if(usernameInput.equals(username) && emailaddressInput.equals(emailaddress)) {
+                JOptionPane.showMessageDialog(null, "Log In Successful. " +
+                        "" + username + " "
+                        + emailaddress);
+            }  else {
+                JOptionPane.showMessageDialog(null, "Invalid Username or Email Address");
+
+            }
+            JOptionPane.showMessageDialog(null,
+                    "Welcome " + username + " " + emailaddress);
         });
 
 
 
     }
 }
+
