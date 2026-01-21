@@ -6,99 +6,49 @@ public class RegistrationForm extends JFrame {
 
     public RegistrationForm() {
         setTitle("Registration Form");
-        setSize(400, 230);
+        setSize(350, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        JLabel usernameLabel = new JLabel("Username:");
-        JLabel emailLabel = new JLabel("Email:");
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel lblUsername = new JLabel("Username:");
+        JTextField txtUsername = new JTextField(15);
+        JLabel lblemailaddress = new JLabel("Email Address:");
+        JTextField txtemail = new JTextField(15);
 
-        JTextField usernameField = new JTextField();
-        JTextField emailField = new JTextField();
-        JPasswordField passwordField = new JPasswordField();
+        JButton btnRegister = new JButton("Register");
 
-        JButton registerButton = new JButton("Register");
-        registerButton.setEnabled(false);
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        add(lblUsername, gbc);
 
-        KeyAdapter keyAdapter = new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                registerButton.setEnabled(
-                        !usernameField.getText().isEmpty() &&
-                                !emailField.getText().isEmpty() &&
-                                passwordField.getPassword().length > 0
-                );
-            }
-        };
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(txtUsername, gbc);
 
-        usernameField.addKeyListener(keyAdapter);
-        emailField.addKeyListener(keyAdapter);
-        passwordField.addKeyListener(keyAdapter);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.EAST;
+        add(lblemailaddress, gbc);
 
-        registerButton.addActionListener(e -> {
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(txtemail, gbc);
 
-            int choice = JOptionPane.showConfirmDialog(
-                    RegistrationForm.this,
-                    "Do you want to register?",
-                    "Confirm",
-                    JOptionPane.YES_NO_OPTION
-            );
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(btnRegister, gbc);
 
-            if (choice != JOptionPane.YES_OPTION) {
-                return;
-            }
-
-            String username = usernameField.getText();
-            String email = emailField.getText();
-            String password = new String(passwordField.getPassword());
-
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(
-                        RegistrationForm.this,
-                        "Please fill in all fields",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }
-
-            if (!email.contains("@")) {
-                JOptionPane.showMessageDialog(
-                        RegistrationForm.this,
-                        "Invalid email address",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }
-
-            System.out.println("Username: " + username);
-            System.out.println("Email: " + email);
-            System.out.println("Password: " + password);
-
-            JOptionPane.showMessageDialog(
-                    RegistrationForm.this,
-                    "Registered Successfully!\nUsername: " + username + "\nEmail: " + email
-            );
-
-            usernameField.setText("");
-            emailField.setText("");
-            passwordField.setText("");
-            registerButton.setEnabled(false);
+        btnRegister.addActionListener(e -> {
+                String username = txtUsername.getText();
+                String emailaddress = txtemail.getText();
+                JOptionPane.showMessageDialog(null,
+                        "Welcome " + username + " " + emailaddress);
         });
-
-        panel.add(usernameLabel);
-        panel.add(usernameField);
-        panel.add(emailLabel);
-        panel.add(emailField);
-        panel.add(passwordLabel);
-        panel.add(passwordField);
-        panel.add(new JLabel());
-        panel.add(registerButton);
-
-        add(panel);
     }
 }
